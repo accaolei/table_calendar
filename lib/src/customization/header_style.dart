@@ -73,7 +73,7 @@ class HeaderStyle {
   /// Defaults to empty BoxDecoration.
   final BoxDecoration decoration;
 
-  final Widget titleBuilder;
+  final bool useMyHeader;
 
   const HeaderStyle({
     this.centerHeaderTitle = false,
@@ -103,6 +103,6 @@ class HeaderStyle {
     this.showLeftChevron = true,
     this.showRightChevron = true,
     this.decoration = const BoxDecoration(),
-    this.titleBuilder,
+    this.useMyHeader,
   });
 }

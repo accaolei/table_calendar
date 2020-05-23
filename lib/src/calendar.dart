@@ -396,8 +396,9 @@ class _TableCalendarState extends State<TableCalendar>
         child: GestureDetector(
           onTap: _onHeaderTapped,
           onLongPress: _onHeaderLongPressed,
-          child: widget.headerStyle.titleBuilder != null
-              ? widget.headerStyle.titleBuilder
+          child: widget.headerStyle.useMyHeader
+              ? _calendarHeader(widget.calendarController.focusedDay,
+                  locale: widget.locale)
               : Text(
                   widget.headerStyle.titleTextBuilder != null
                       ? widget.headerStyle.titleTextBuilder(
@@ -434,6 +435,57 @@ class _TableCalendarState extends State<TableCalendar>
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: children,
+      ),
+    );
+  }
+
+  Widget _calendarHeader(controller, {dynamic locale}) {
+    var today = DateTime.now().day;
+
+    var yearAndMonth = DateFormat.yMMM(locale).format(controller.focusedDay);
+    var day = DateFormat.d(locale).format(controller.focusedDay);
+    var differenceDays = today - controller.focusedDay.day;
+    switch (differenceDays) {
+      case 0:
+        day = '今天';
+        break;
+      case 1:
+        day = '昨天';
+        break;
+      case 2:
+        day = '前天';
+        break;
+      case -1:
+        day = '明天';
+        break;
+      case -2:
+        day = '后天';
+        break;
+      default:
+    }
+    return Container(
+      child: Container(
+        alignment: Alignment.topLeft,
+        padding: EdgeInsets.only(left: 20, bottom: 10, top: 5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              '$yearAndMonth',
+              style: TextStyle(color: Colors.grey, fontSize: 14),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 5),
+              child: Text(
+                '$day',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 30,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
