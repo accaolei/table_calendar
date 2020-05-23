@@ -397,7 +397,7 @@ class _TableCalendarState extends State<TableCalendar>
           onTap: _onHeaderTapped,
           onLongPress: _onHeaderLongPressed,
           child: widget.headerStyle.useMyHeader
-              ? _calendarHeader(widget.calendarController.focusedDay,
+              ? _calendarHeader(widget.calendarController,
                   locale: widget.locale)
               : Text(
                   widget.headerStyle.titleTextBuilder != null
